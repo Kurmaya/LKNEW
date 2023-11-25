@@ -430,7 +430,7 @@ function onWindowResize(){
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth,window.innerHeight);
 }
-
+window.addEventListener('resize',onWindowResize);
 document.addEventListener('mousemove',onDocumentMouseMove)
 let mouseX= 0;
 let mouseY=0;
