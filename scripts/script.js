@@ -313,7 +313,7 @@ gLoader.load('./assets/3d/lk ship.glb',function(gltf){
         if(child.isMesh && child.material.name==="Glass"){
             // console.log(child);
             // child.scale.set(.8,.8,.8);
-            child.material= new THREE.MeshPhysicalMaterial({transparent:true,opacity:.1,emissive:true,depthTest:false,transmission:.20})
+            child.material= new THREE.MeshPhysicalMaterial({transparent:true,opacity:.1,emissive:true,depthTest:false,transmission:.0})
         }
         else if(child.name==="Cube"||child.name==="Cube001"||child.name==="Cube003"||child.name==="Cube004"||child.name==="Cube005"||child.name==="Cube007"||child.name==="Cube008"||child.name==="Cube009"||child.name==="Cube010"||child.name==="Cube011"){
             // console.log(child);
