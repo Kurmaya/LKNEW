@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: 'tron';
+    src: url('../fonts/TRON.TTF');
+}
+body{
+    overflow:hidden ;
+}
+.test{
+    width:0;
+    height: 0;
+    background-color: transparent;
+    transition: .5s ease;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+.test.active{
+    width:90vh;
+    height: 50vh;
+    background-color: blue;
+    top:15%;
+    left:50%;
+    transform: translate(-50%,-15%);
+}
+.text-t{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+    background-color: black;
+}
+h1{
+    /* position: absolute; */
+    font-family: 'tron';
+    color:white;
+
+}
+.holder{
+    font-family: 'tron';
+    position: absolute;
+    top:0;
+    left:0;
+color:white;
+margin:auto;
+    width:90vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.akina,.silver{
+    width:50%;
+    height: 50%;
+    top:50%;
+    left:50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: .5s ease;
+
+}
+.akina.active,.silver.active{
+    opacity: 1;
+    pointer-events: all;
+}
