@@ -264,6 +264,7 @@ const akina =new THREE.Mesh(akinaGeo,akinaMat);
 akina.name='Akina';
 // console.log(akina);
 akina.position.z=87;
+akina.position.x=10;
 scene.add(akina);
 
 //silvermoon display
@@ -274,7 +275,7 @@ const silver =new THREE.Mesh(silverGeo,silverMat);
 silver.name='silver';
 // console.log(silver);
 silver.position.z=87;
-silver.position.x=akina.position.x+10;
+silver.position.x=akina.position.x;
 scene.add(silver);
 
 //star field
