@@ -1,65 +1,139 @@
 import * as THREE from '../modules/three.module.js';
 // import gsap from "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js";
+
 import { GLTFLoader } from '../modules/GLTFLoader.js';
+import { EffectComposer } from '../modules/EffectComposer.js';
+import { RenderPass } from '../modules/RenderPass.js';
+import {UnrealBloomPass} from '../modules/UnrealBloomPass.js';
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 // import * as dat from 'dat.gui';
 
 let canvas , camera , scene , renderer, controls;
+
 canvas= document.querySelector('.webgl');
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
+// const gui = new dat.GUI();
+// window.addEventListener('mousemove',(event)=>{
+//     const intersects = raycaster.intersectObjects( scene.children );
+// // console.log(intersects);
 
-window.addEventListener('mousemove',(event)=>{
-    const intersects = raycaster.intersectObjects( scene.children );
-// console.log(intersects);
+// 	for ( let i = 0; i < intersects.length; i ++ ) {
 
-	for ( let i = 0; i < intersects.length; i ++ ) {
+//         if(intersects[i].object.name==='Cube006'|| intersects[i].object.name==='Cube002'){
+//             // document.body.style.cursor= "pointer";
 
-        if(intersects[i].object.name==='Cube006'|| intersects[i].object.name==='Cube002'){
+//             // intersects[i].object.material.color.set(0x00ff00);
+//             // gsap.to(intersects[i].object.scale,{
+//             //     x:1.1,
+//             //     duration:.3,
 
-            // intersects[i].object.material.color.set(0x00ff00);
-            // gsap.to(intersects[i].object.scale,{
-            //     x:1.1,
-            //     duration:.3,
+//             // })
 
-            // })
+//         }
+//         else if(intersects[i].object.name==='LUNATICK_v3'){
+//             // intersects[i].object.material.color.set(0x00ff00);
+//             // document.body.style.cursor= "pointer";
+//         }
 
-        }
-        else if(intersects[i].object.name==='LUNATICK_v3'){
-            intersects[i].object.material.color.set(0x00ff00);
-        }
+// 		// else if( intersects[i].object.name==='Akina'){
+//         //     console.log(intersects[i]);
+//         //     let tl= gsap.timeline();
+//         //     tl.to(intersects[i].object.scale,{
+//         //         x:1.2,
+//         //         duration:.3,
+//         //     })
+//         //     .to(intersects[i].object.scale,{
+//         //         x:1,
+//         //         duration:.3,
+//         //     })
+//         // }
+//         // else document.body.style.cursor="default";
+// 	}
 
-		// else if( intersects[i].object.name==='Akina'){
-        //     console.log(intersects[i]);
-        //     let tl= gsap.timeline();
-        //     tl.to(intersects[i].object.scale,{
-        //         x:1.2,
-        //         duration:.3,
-        //     })
-        //     .to(intersects[i].object.scale,{
-        //         x:1,
-        //         duration:.3,
-        //     })
-        // }
-
-	}
-})
+// })
 function move(e){
-gsap.to(e.object.scale,{
-    x:.2,
-    y:.2,
-    z:.2,
-    duration:2,
+gsap.to(e.object.position,{
+    x:0,
+
+    duration:1,
 })
 }
+function rem(){
+    document.querySelectorAll('.holder div').forEach(n=>{
+        n.classList.remove('active');
+    })
+}
 function select(e){
+    // let n ='.'+ e.object.name;
+
+    switch(e.object.name) {
+        case "Akina":
+          // code block
+          rem();
+          document.querySelector('.Akina').classList.add('active');
+        //   move(e);
+          break;
+        case "silver":
+            rem();
+            document.querySelector('.silver').classList.add('active');
+            // move(e);
+          // code block
+          break;
+          case "seekloc":
+            rem();
+            document.querySelector('.seekloc').classList.add('active');
+            // move(e);
+            break;
+            case "bubble":
+                rem();
+                document.querySelector('.bubble').classList.add('active');
+                // move(e);
+                break;
+                case "hiro":
+                rem();
+                document.querySelector('.hiro').classList.add('active');
+                // move(e);
+                break;
+                case "antipode":
+                rem();
+                document.querySelector('.antipode').classList.add('active');
+                // move(e);
+                break;
+        default:
+          // code block
+      }
+    console.log(e.object.name);
+    // document.querySelectorAll('.holder div').forEach((a)=>{
+    //     a.classList.remove('active');
+    //     // a.classList.add()
+    //     gsap.set('.'+e.object.name,{
+    //         classList:e.object.name
+    //     })
+    // });
+    // gsap.set('.')
+
+
+
+    // gsap.set(n,{
+    //     // onStart:function(){console.log('.'+e.object.name)},
+    //     className:'active',
+
+    // });
     let tl=gsap.timeline();
-    if(e.object.name==='Akina'||e.object.name==='silver'){
+    // if(e.object.name==='Akina'||e.object.name==='silver'){
+        // var n='';
+        // n=e.object.name;
+        // console.log(n);
+        // document.querySelector(e.object.name).classList.add('active');
+        if(e.object.userData==='use'){
         tl.to(e.object.scale,{
+            y:1.2,
             x:1.2,
             duration:.3,
         })
         .to(e.object.scale,{
+            y:1,
             x:1,
             duration:.3,
         })
@@ -117,6 +191,8 @@ function rot(e){
 
 window.addEventListener('click', (event) =>{
 
+
+
 	// calculate pointer position in normalized device coordinates
 	// (-1 to +1) for both components
 
@@ -127,29 +203,27 @@ window.addEventListener('click', (event) =>{
 
 
 	for ( let i = 0; i < intersects.length; i ++ ) {
-        if(intersects.length>0 && intersects[i].object.name==='Akina'||intersects.length>0 && intersects[i].object.name==='silver'){
-            // console.log(intersects[i]);
-            // let tl= gsap.timeline();
-            //     tl.to(intersects[i].object.scale,{
-            //         x:1.2,
-            //         duration:.3,
-            //     })
-            //     .to(intersects[i].object.scale,{
-            //         x:1,
-            //         duration:.3,
-            //     })
+        console.log(intersects.length,intersects[i].object);
+        if(intersects.length>0 && (intersects[i].object.name==='Akina'|| intersects[i].object.name==='silver' || intersects[i].object.name==='seekloc' || intersects[i].object.name==='antipode' || intersects[i].object.name==='bubble' || intersects[i].object.name==='hiro')){
+
             select(intersects[i]);
+
+
         }
         else if(intersects[i].object.name==='LUNATICK_v3'){
-            intersects[ i ].object.material.color.set( 0xff0000 );
+            // intersects[ i ].object.material.color.set( 0xff0000 );
+
             // console.log(intersects[i].object.name);
+            document.querySelector('nav').classList.add('active');
             gsap.to(intersects[i].object.scale,{
                 x:1,
                 y:1,
                 z:1,
                 onComplete:function(){
                     let tl = gsap.timeline({onComplete:function(){
-                        glInit();
+                        // glInit();
+                        animate();
+                        mouse();
                     }});
                     // tl.to(intersects[i].object.rotation,{y:(Math.PI),duration:1,ease:'none'},'simultaneously');
                     // tl.to(intersects[i].object.scale,{
@@ -159,9 +233,17 @@ window.addEventListener('click', (event) =>{
                     //     duration:1,
                     // },'simultaneously')
                     tl.to(intersects[i].object,{name:'LUNATICK_v3.on'},'simultaneously')
+                    tl.to(intersects[i].object.material.color,{
+                        r:1,
+                        g:0,
+                        b:0,
+
+                    },'simultaneously')
+
+                    tl.to(intersects[i].object.rotation,{x:2.8},'simultaneously')
                     tl.to(intersects[i].object.scale,{
-                        x:.005,
-                        y:.005,
+                        x:.003,
+                        y:.003,
                         z:.001,
                         duration:1,
                     },'simultaneously')
@@ -175,13 +257,14 @@ window.addEventListener('click', (event) =>{
 
                     // },'simultaneously')
                     tl.to(intersects[i].object.position,{
-                        x:-7.95,
-                        y:29.75,
+                        x:-7.969,
+                        y:29.8,
                         z:98.8,
                         duration:1,
 
                     },'simultaneously')
 
+                    .to(ship.position,{z:(ship.position.z-6)});
                     // tl.to(akinaMat,{
                     //     opacity:1,
                     //     duration:.5,
@@ -194,46 +277,65 @@ window.addEventListener('click', (event) =>{
             })
 
 
+
         }
         else if(intersects[i].object.name==='Cube002'){
-            intersects[i].object.material.color.set(0x00ff00);
+            // intersects[i].object.material.color.set(0x00ff00);
             rot(intersects[i]);
             setTimeout(function(){
                 intersects[i].object.material.color.set(0xff0000);
             },200);
             // document.querySelector('.test').classList.add('active');
             // document.querySelector('.holder div').classList.remove('active');
-            gsap.to(akinaMat,{
-                opacity:1,
-                duration:.3,
-            })
-            gsap.to(silverMat,{
-                opacity:0,
-                duration:.3,
-            })
-            document.querySelector('.silver').classList.remove('active');
-            // select(akina);
-            document.querySelector('.akina').classList.add('active');
+            // gsap.to(akinaMat,{
+            //     opacity:1,
+            //     duration:.3,
+            // })
+            // gsap.to(silverMat,{
+            //     opacity:0,
+            //     duration:.3,
+            // })
+            // document.querySelector('.silver').classList.remove('active');
+            // // select(akina);
+            // document.querySelector('.akina').classList.add('active');
+            if(grp.position.x>-30){
+                gsap.to(grp.position,{
+                    x:'-=10',
+                    duration:1,
+                    // onComplete:function(){console.log(grp.position.x)}
+                })
+            }
+
+
+
 
         }
         else if( intersects[i].object.name==='Cube006'){
             rot(intersects[i]);
-            intersects[i].object.material.color.set(0x00ff00);
+            // intersects[i].object.material.color.set(0x00ff00);
             setTimeout(function(){
                 intersects[i].object.material.color.set(0xff0000);
             },200);
-            gsap.to(akinaMat,{
-                opacity:0,
-                duration:.3
-            })
-            gsap.to(silverMat,{
-                opacity:1,
-                duration:.3,
-            })
+            if(grp.position.x<19){
+                gsap.to(grp.position,{
+                    x:'+=10',
+                    duration:1,
+                    // onComplete:function(){console.log(grp.position.x)}
+                })
+            }
+
+            // gsap.to(akinaMat,{
+            //     opacity:0,
+            //     duration:.3
+            // })
+            // gsap.to(silverMat,{
+            //     opacity:1,
+            //     duration:.3,
+            // })
             // document.querySelector('.test').classList.remove('active');
             // document.querySelector('.holder div').classList.remove('active');
-            document.querySelector('.silver').classList.add('active');
-            document.querySelector('.akina').classList.remove('active');
+            // document.querySelector('.silver').classList.add('active');
+            // document.querySelector('.akina').classList.remove('active');
         }
 
 
@@ -246,7 +348,7 @@ window.addEventListener('click', (event) =>{
 
 
 camera= new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,500);
-camera.position.z=100;
+camera.position.z=99.7;
 camera.position.y=.3;
 
 renderer= new THREE.WebGLRenderer({canvas:canvas,antialias:true});
@@ -255,37 +357,101 @@ renderer.setPixelRatio(devicePixelRatio);
 
 scene= new THREE.Scene();
 scene.add(camera);
+//effect composer
+const composer = new EffectComposer(renderer);
+const renderScene = new RenderPass(scene,camera) ;
+const bloomPass = new UnrealBloomPass( new THREE.Vector2(window.innerWidth,window.innerHeight),0.2,.5,.8);
+
+
+console.log(bloomPass.strength,bloomPass);
+// bloomPass.clearColor.r=1;
+
+
+composer.addPass(renderScene);
+composer.addPass(bloomPass);
 
 //akina display
 
 const akinaGeo= new THREE.PlaneGeometry(8,4,100,100);
-const akinaMat =new THREE.MeshBasicMaterial({transparent:true,opacity:0,map:new THREE.TextureLoader().load('./assets/akina.jpg')});
+const akinaMat =new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:new THREE.TextureLoader().load('./assets/akina.jpg')});
 const akina =new THREE.Mesh(akinaGeo,akinaMat);
 akina.name='Akina';
-// console.log(akina);
-akina.position.z=87;
-akina.position.x=10;
-scene.add(akina);
+
+console.log(akina);
+akina.position.z=80;
+akina.position.x=-19;
+// scene.add(akina);
 
 //silvermoon display
 
 const silverGeo = new THREE.PlaneGeometry(8,4,100,100);
-const silverMat =new THREE.MeshBasicMaterial({transparent:true,opacity:0,map:new THREE.TextureLoader().load('./assets/silvermoon.jpg')});
+const silverMat =new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:new THREE.TextureLoader().load('./assets/silvermoon.jpg')});
 const silver =new THREE.Mesh(silverGeo,silverMat);
 silver.name='silver';
 // console.log(silver);
-silver.position.z=87;
-silver.position.x=akina.position.x;
-scene.add(silver);
+// silver.position.z=akina.position.z-2;
+// silver.position.x=akina.position.x+10;
+// scene.add(silver);
+//hirothermal display
+const hiroGeo = new THREE.PlaneGeometry(8,4,1,1);
+const hiroMat =new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:new THREE.TextureLoader().load('./assets/hirothermal.jpg')});
+const hiro =new THREE.Mesh(hiroGeo,hiroMat);
+hiro.name='hiro';
+// console.log(silver);
+// hiro.position.z=silver.position.z-2;
+// hiro.position.x=silver.position.x+10;
+// scene.add(hiro);
 
+//anitpode display
+
+const antiGeo = new THREE.PlaneGeometry(8,4,100,100);
+const antiMat =new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:new THREE.TextureLoader().load('./assets/antipode.jpg')});
+const anti =new THREE.Mesh(antiGeo,antiMat);
+anti.name='antipode';
 //star field
+// anti.position.z=akina.position.z;
+// anti.position.x=hiro.position.x+10;
+// scene.add(anti);
 
+//bubble display
+const bubGeo = new THREE.PlaneGeometry(8,4,100,100);
+const bubMat =new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:new THREE.TextureLoader().load('./assets/bubble.jpg')});
+const bubble =new THREE.Mesh(bubGeo,bubMat);
+bubble.name='bubble';
+bubble.position.z=anti.position.z=hiro.position.z=silver.position.z=akina.position.z;
+// bubble.position.x=anti.position.x+10;
+// scene.add(bubble);
+
+//seekloc display
+const seekGeo = new THREE.PlaneGeometry(8,4,100,100);
+const seekMat =new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:new THREE.TextureLoader().load('./assets/seekloc.jpg')});
+const seek =new THREE.Mesh(seekGeo,seekMat);
+seek.name='seekloc';
+seek.position.z=akina.position.z;
+
+// seek.position.set(bubble.position.x+10,0,bubble.position,akina.position.z);
+// scene.add(seek);
+akina.userData=seek.userData=bubble.userData=anti.userData=bubble.userData=silver.userData=hiro.userData='use';
+console.log(seek);
+//group
+const grp = new THREE.Group();
+grp.add(akina,silver,hiro,anti,bubble,seek);
+scene.add(grp);
+grp.position.y=100;
+console.log(grp);
+document.getElementById('work').addEventListener('click',function(){
+  gsap.to(grp.position,{
+    y:0,
+    duration:.5,
+  })
+})
+// gui.add(grp.position,'x',-15,15).name('grp px ');
 
 // controls = new OrbitControls( camera, canvas );
 // controls.update();
 //gui
 
-// const gui = new dat.GUI();
+
 
 //gltf load
 let gLoader = new GLTFLoader();
@@ -298,8 +464,8 @@ gLoader.load('./assets/3d/lk ship.glb',function(gltf){
     // gltf.scene.opacity=0;
     // console.log(gltf.scene);
     // gltf.scene.scale.set(.5,.8,.3);
-    gltf.scene.position.z=99.5;
-    gltf.scene.position.y=-1.9;
+    gltf.scene.position.z=105;
+    gltf.scene.position.y=-2.15;
     gltf.scene.rotation.y=Math.PI;
     gltf.scene.traverse(function(child){
         if(child.isMesh){
@@ -314,7 +480,7 @@ gLoader.load('./assets/3d/lk ship.glb',function(gltf){
         if(child.isMesh && child.material.name==="Glass"){
             // console.log(child);
             // child.scale.set(.8,.8,.8);
-            child.material= new THREE.MeshPhysicalMaterial({transparent:true,opacity:.1,emissive:true,depthTest:false,transmission:.0})
+            child.material= new THREE.MeshPhysicalMaterial({transparent:true,opacity:.02,emissive:0xff0000,depthTest:false,transmission:0})
         }
         else if(child.name==="Cube"||child.name==="Cube001"||child.name==="Cube003"||child.name==="Cube004"||child.name==="Cube005"||child.name==="Cube007"||child.name==="Cube008"||child.name==="Cube009"||child.name==="Cube010"||child.name==="Cube011"){
             // console.log(child);
@@ -334,11 +500,12 @@ gLoader.load('./assets/3d/lk ship.glb',function(gltf){
             child.scale.y=0.09;
             // child.position.z=.88;
             // child.position.x=0.5;
-            // let nTex= new THREE.TextureLoader().load('./assets/next.png');
-            // nTex.center.x=1;
+            // let nTex= new THREE.TextureLoader().load('./assets/uv1.png');
+            // nTex.offset.y=-1;
+            // nTex.center.y=-2;
             // let nTex =new THREE.TextureLoader().load('./assets/tron-font.jpg');
             // console.log(nTex)
-            child.material= new THREE.MeshPhysicalMaterial();
+            child.material= new THREE.MeshPhysicalMaterial({reflectivity:.8,color:0xff0000});
             // gui.add(child.scale,'x',0,1).name('c2 x');
             // gui.add(child.scale,'y',0,1).name('c2 y');
             // gui.add(child.scale,'z',0,1).name('c2 z');
@@ -354,7 +521,7 @@ gLoader.load('./assets/3d/lk ship.glb',function(gltf){
             // child.scale.y=0.17,
             // child.scale.z=0.013;
             // child.position.x=0.5;
-            child.material= new THREE.MeshPhysicalMaterial();
+            child.material= new THREE.MeshPhysicalMaterial({reflectivity:.8,emissive:1.4,color:0xff0000});
             // gui.add(child.position,'x',0,1).name(' cp x');
             // gui.add(child.position,'y',0,1).name(' cp y');
             // gui.add(child.position,'z',0,1).name(' cp z');
@@ -369,13 +536,15 @@ let logo;
 function lkInit(){
 gLoader.load('./assets/3d/lunatick.glb',function(gltf){
     scene.add(gltf.scene);
-    // console.log(gltf.scene.children[0]);
+    console.log(gltf.scene.children[0]);
     logo = gltf.scene.children[0];
     logo.rotation.x=Math.PI;
+    logo.material= new THREE.MeshPhysicalMaterial({color:0x7c8a92,reflectivity:10,metalness:0.5,roughness:.2,emissive:0x000000})
+    logo.material.metalness= 0.6;
     // gui.add(logo.rotation,'x',-Math.PI,Math.PI).name('logo r x');
     // gui.add(logo.rotation,'y',-Math.PI,Math.PI).name('logo r y');
-    // gui.add(logo.position,'x',-80,0).name('logo p x');
-    // gui.add(logo.position,'y',0,80).name('logo p y')
+    // gui.add(logo.position,'x',-8,-7).name('logo p x');
+    // gui.add(logo.position,'y',29,30).name('logo p y')
     // gui.add(logo.position,'z',50,100).name('logo p z')
     // gui.add(logo.scale,'x',0,1).name('logo s x');
     // gui.add(logo.scale,'y',0,1).name('logo s y');
@@ -385,7 +554,14 @@ gLoader.load('./assets/3d/lunatick.glb',function(gltf){
 })
 
 }
+let dLight= new THREE.DirectionalLight(0xff0000,2);
+let dLight2= new THREE.DirectionalLight(0x00ff00,2);
+dLight.position.set(-40,-20,82);
+dLight2.position.set(40,-20,82);
 
+// gui.add(dLight.position,'x',-1,10).name('dlight px');
+// gui.add(dLight.position,'y',-1,10).name('dlight py');
+scene.add(dLight,dLight2);
 let pLight= new THREE.PointLight({color:0xff0000});
 pLight.position.set(0,.5,101);
 
@@ -395,12 +571,12 @@ scene.add(aLight,pLight);
 aLight.intensity=pLight.intensity=0;
 gsap.to(aLight,{
     delay:1,
-    intensity:1.5,
+    intensity:1,
     duration:1,
     ease:'none'
 });
 gsap.to(pLight,{
-    intensity:6,
+    intensity:1.5,
     delay:3,
     duration:1,
     ease:'none',
@@ -420,7 +596,7 @@ gsap.to(aLight.color,{
 //     yoyo:true,
 //     ease:'none'
 // })
-camera.rotation.x=-.1;
+camera.rotation.x=-.04;
 
 
 
@@ -431,6 +607,7 @@ function onWindowResize(){
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth,window.innerHeight);
 }
+
 window.addEventListener('resize',onWindowResize);
 document.addEventListener('mousemove',onDocumentMouseMove)
 let mouseX= 0;
@@ -494,8 +671,28 @@ let dots = new THREE.Points(geom,pMat);
 scene.add(lines);
 
 function render(){
-    renderer.render(scene,camera);
+
+    // renderer.render(scene,camera);
+    composer.render(scene,camera);
     camera.updateProjectionMatrix();
+    silver.position.x=akina.position.x+10;
+    hiro.position.x=silver.position.x+10;
+    anti.position.x=hiro.position.x+10;
+    bubble.position.x=anti.position.x+10;
+    seek.position.x=bubble.position.x+10;
+    akina.position.needsUpdate=hiro.position.needsUpdate=silver.position.needsUpdate=seek.position.needsUpdate=true;
+
+
+    // controls.update();
+    requestAnimationFrame(render);
+
+}
+function mouse (){
+    camera.rotation.y= -(mouseX *0.00001);
+
+    requestAnimationFrame(mouse);
+}
+function animate(){
     for(let lineIndex=0; lineIndex<lineCount;lineIndex++){
         //accleration
 
@@ -516,10 +713,9 @@ function render(){
         }
     }
     pos.needsUpdate=true;
-    // controls.update();
-    requestAnimationFrame(render);
-
+    requestAnimationFrame(animate);
 }
 render();
-// glInit();
+glInit();
 lkInit();
+// animate();
