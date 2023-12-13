@@ -5,39 +5,44 @@
 }
 @font-face {
     font-family: 'tron';
-    src: url('/fonts/TRON.TTF');
+    src: url('./fonts/TRON.TTF');
+}
+.webgl{
+    position: relative;
+    /* z-index: 9; */
 }
 body{
     overflow:hidden ;
 }
 nav{
-  width:100vw;
-  /* height: 10vh; */
-  /* background: white; */
-  position: fixed;
-  top:-20%;
-  /* color:black; */
-  z-index: 100;
-  transition: .5s ease;
-}
-nav.active{
-top:0;
-}
-nav ul{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding:.5rem 0;
-}
-nav ul li{
-  display: inline;
-  margin: auto 15px;
-}
-nav a{
-  text-decoration: none;
-  color:white;
-  font-size:1.2rem;
-}
+    width:100vw;
+    /* height: 10vh; */
+    /* background: white; */
+    position: fixed;
+    top:-20%;
+    /* color:black; */
+    z-index: 100;
+    transition: .5s ease;
+    z-index: 10;
+  }
+  nav.active{
+  top:0;
+  }
+  nav ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:.5rem 0;
+  }
+  nav ul li{
+    display: inline;
+    margin: auto 15px;
+  }
+  nav a{
+    text-decoration: none;
+    color:white;
+    font-size:1.2rem;
+  }
 .test{
     width:0;
     height: 0;
@@ -67,7 +72,7 @@ h1{
     /* position: absolute; */
     font-family: 'tron';
     color:white;
-
+    
 }
 .holder{
     font-family: 'tron';
@@ -76,28 +81,32 @@ h1{
     left:0;
 color:white;
 margin:auto;
-    width:100vw;
+    width:100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    /* z-index: -1; */
 }
 .holder>div{
-    width:50%;
+    width:80%;
     height: 50%;
-    top:50%;
+    top:60%;
     left:50%;
     position: absolute;
     transform: translate(-50%,-50%);
     opacity: 0;
     pointer-events: none;
     transition: .5s ease;
+    /* padding: 1rem; */
+    line-height: 2;
 }
 .holder>div.active{
     opacity: 1;
     pointer-events: all;
 }
-.Akina,.silver,.bubble,.seekloc,.hiro,.antipode{
+.Akina,.silver,.bubble,.seekloc,.hiro,.antipode.iruka,.vigil,.hyper,.albetor,.intergal,.lifeboat,.kobi{
         width:50%;
     height: 50%;
     top:50%;
@@ -107,9 +116,14 @@ margin:auto;
     opacity: 0;
     pointer-events: none;
     transition: .5s ease;
-
+    
 }
-.akina.active,.silver.active,.bubble.active,.hiro.active,.antipode.active{
+.akina.active,.silver.active,.bubble.active,.hiro.active,.antipode.active,.iruka.active,.vigil.active,.hyper.active,.albetor.active,.intergal.active,.lifeboat.active,.kobi.active{
  opacity: 1;
     pointer-events: all;
+}
+.holder p{
+    font-family:sans-serif!important;
+    width: 50%;
+    margin: 3% auto;
 }
