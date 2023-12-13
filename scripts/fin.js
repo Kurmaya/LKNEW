@@ -350,7 +350,7 @@ window.addEventListener('click', (event) =>{
                 intersects[i].object.material.color.set(0xff0000);
             },200);
            
-            if(grp.position.x<10 && document.getElementById('work').classList.contains('active')){
+            if(document.getElementById('work').classList.contains('active')){
                 // gsap.to(grp.position,{
                 //     x:'+=10',
                 //     duration:.5,
@@ -375,7 +375,7 @@ window.addEventListener('click', (event) =>{
             setTimeout(function(){
                 intersects[i].object.material.color.set(0xff0000);
             },200);
-            if(grp.position.x > -110 && document.getElementById('work').classList.contains('active')){
+            if(document.getElementById('work').classList.contains('active')){
                 // gsap.to(grp.position,{
                 //     x:'-=10',
                 //     duration:.5,
