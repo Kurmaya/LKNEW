@@ -350,7 +350,7 @@ window.addEventListener('click', (event) =>{
                 intersects[i].object.material.color.set(0xff0000);
             },200);
            
-            if(document.getElementById('work').classList.contains('active')){
+            if(grp.position.x<10 && document.getElementById('work').classList.contains('active')){
                 // gsap.to(grp.position,{
                 //     x:'+=10',
                 //     duration:.5,
@@ -375,7 +375,7 @@ window.addEventListener('click', (event) =>{
             setTimeout(function(){
                 intersects[i].object.material.color.set(0xff0000);
             },200);
-            if(document.getElementById('work').classList.contains('active')){
+            if(grp.position.x > -110 && document.getElementById('work').classList.contains('active')){
                 // gsap.to(grp.position,{
                 //     x:'-=10',
                 //     duration:.5,
@@ -631,7 +631,7 @@ gLoader.load('./assets/3d/lk ship.glb',function(gltf){
         if(child.isMesh && child.material.name==="Glass"){
             // console.log(child);
             // child.scale.set(.8,.8,.8);
-            child.material= new THREE.MeshPhysicalMaterial({transparent:true,opacity:.02,emissive:0xffffff,depthTest:false,transmission:0})
+            child.material= new THREE.MeshPhysicalMaterial({transparent:true,opacity:.02,emissive:0xffffff,depthTest:true,transmission:0})
         }
         else if(child.name==="Cube"||child.name==="Cube001"||child.name==="Cube003"||child.name==="Cube004"||child.name==="Cube005"||child.name==="Cube007"||child.name==="Cube008"||child.name==="Cube009"||child.name==="Cube010"||child.name==="Cube011"){
             // console.log(child);

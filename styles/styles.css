@@ -90,8 +90,8 @@ margin:auto;
     /* z-index: -1; */
 }
 .holder>div{
-    width:80%;
-    height: 50%;
+    width:90%;
+    height: 60%;
     top:60%;
     left:50%;
     position: absolute;
@@ -101,13 +101,27 @@ margin:auto;
     transition: .5s ease;
     /* padding: 1rem; */
     line-height: 2;
+    background: rgba(0,0,0,.5);
+    overflow-y: scroll;
+}
+.holder span{
+    position:absolute;
+    top:2%;
+    right:2%;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: .3s ease;
+}
+.holder span:hover{
+color:red;
+transform: rotateY(180deg);
 }
 .holder>div.active{
     opacity: 1;
     pointer-events: all;
 }
 .Akina,.silver,.bubble,.seekloc,.hiro,.antipode.iruka,.vigil,.hyper,.albetor,.intergal,.lifeboat,.kobi{
-        width:50%;
+    width:60%;
     height: 50%;
     top:50%;
     left:50%;
@@ -121,9 +135,26 @@ margin:auto;
 .akina.active,.silver.active,.bubble.active,.hiro.active,.antipode.active,.iruka.active,.vigil.active,.hyper.active,.albetor.active,.intergal.active,.lifeboat.active,.kobi.active{
  opacity: 1;
     pointer-events: all;
+    z-index: 1000;
 }
 .holder p{
     font-family:sans-serif!important;
     width: 50%;
     margin: 3% auto;
+}
+.img-cont{
+position: relative;
+width:90%;
+height: auto;
+display: grid;
+grid-template-columns: repeat(2,1fr);
+gap:10px;
+padding:1rem;
+margin:5% auto;
+
+}
+.img-cont img{
+    max-width:600px;
+    /* height: 300px; */
+    
 }
